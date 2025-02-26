@@ -23,25 +23,25 @@ class UpdateOrderPage extends StatefulWidget {
 }
 
 class _UpdateOrderPageState extends State<UpdateOrderPage> {
-  List<bool> isChecked = [false, false, false]; // حالة الصح لكل مستطيل
+  List<bool> isChecked = [false, false, false]; 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Update Order")),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ✅ الصورة أصبحت في المنتصف وبحجم أكبر
+           
             Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
                   widget.image,
-                  width: 250, // زيادة العرض
-                  height: 250, // زيادة الارتفاع
+                  width: 250, 
+                  height: 250,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,7 +49,6 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
 
             const SizedBox(height: 20),
 
-            // ✅ تفاصيل الطلب
             Text(
               widget.title,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -57,7 +56,7 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
             ),
             const SizedBox(height: 4),
             Text(
-              widget.price,
+              "${widget.price} DA",
               style: const TextStyle(fontSize: 18, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
@@ -75,7 +74,6 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
 
             const SizedBox(height: 20),
 
-            // ✅ خطوات الطلب
             const Text(
               "Order Steps:",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -91,7 +89,6 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
     );
   }
 
-  // ✅ ويدجت لعرض تفاصيل الطلب
   Widget buildOrderDetail(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -112,12 +109,11 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
     );
   }
 
-  // ✅ ويدجت لإنشاء عنصر القائمة بدون حواف
   Widget buildTaskItem(int index, String text) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          isChecked[index] = !isChecked[index]; // تغيير الحالة عند النقر
+          isChecked[index] = !isChecked[index]; 
         });
       },
       child: Padding(
@@ -134,8 +130,8 @@ class _UpdateOrderPageState extends State<UpdateOrderPage> {
               height: 28,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isChecked[index] ? Colors.blue : Colors.transparent,
-                border: Border.all(color: Colors.blue, width: 2),
+                color: isChecked[index] ? const Color.fromARGB(255, 163, 119, 178) : Colors.transparent,
+                border: Border.all(color: const Color.fromARGB(255, 163, 119, 178), width: 2),
               ),
               child: isChecked[index]
                   ? const Icon(Icons.check, color: Colors.white, size: 18)

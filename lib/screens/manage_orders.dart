@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'update_order.dart';
-import 'requested_order_page.dart'; // استيراد الصفحة الجديدة
+import 'requested_order_page.dart';
 
 class ManageOrders extends StatefulWidget {
   const ManageOrders({super.key});
@@ -14,7 +14,7 @@ class _OrdersPageState extends State<ManageOrders> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4, // Define the number of tabs
       child: Scaffold(
         appBar: AppBar(
           title: Center(
@@ -26,22 +26,24 @@ class _OrdersPageState extends State<ManageOrders> {
           backgroundColor: const Color.fromARGB(255, 245, 243, 249),
           foregroundColor: Colors.black,
           bottom: TabBar(
-            indicatorColor: Color.fromARGB(255, 178, 143, 119),
-            labelColor: Color.fromARGB(255, 178, 143, 119),
-            unselectedLabelColor: Colors.black,
+            indicatorColor: Color.fromARGB(255, 163, 119, 178), // Tab indicator color
+            labelColor: Color.fromARGB(255, 163, 119, 178), // Text color when selected
+            unselectedLabelColor: Colors.black, // Text color when unselected
             labelStyle: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
             tabs: const [
-              Tab(text: "Received"),
-              Tab(text: "Tailoring"),
-              Tab(text: "Completed"),
+              Tab(text: "Received"), // Received orders
+              Tab(text: "Tailoring"), // Orders in tailoring process
+              Tab(text: "Completed"), // Completed orders
+              Tab(text: "Canceled"), // Canceled orders
             ],
           ),
         ),
         body: const TabBarView(
           children: [
-            OrdersList(orderType: "Order Details"),
-            OrdersList(orderType: "Update"),
-            OrdersList(orderType: "Review"),
+            OrdersList(orderType: "view Request"), // List of received orders
+            OrdersList(orderType: "Update"), // List of orders that can be updated
+            OrdersList(orderType: "Review"), // List of completed orders
+            OrdersList(orderType: "Canceled"), // List of canceled orders
           ],
         ),
       ),
@@ -58,10 +60,11 @@ class OrdersList extends StatefulWidget {
 }
 
 class _OrdersListState extends State<OrdersList> {
+  // Sample list of orders
   final List<Map<String, String>> orders = [
     {
       "title": "Karako",
-      "price": "\$110.00",
+      "price": "21000 DA",
       "image": "images/1.jpg",
       "color": "Blue",
       "size": "Large",
@@ -69,7 +72,7 @@ class _OrdersListState extends State<OrdersList> {
     },
     {
       "title": "Kaftan",
-      "price": "\$50.00",
+      "price": "12000 DA",
       "image": "images/2.jpg",
       "color": "Green",
       "size": "Medium",
@@ -77,7 +80,7 @@ class _OrdersListState extends State<OrdersList> {
     },
     {
       "title": "Skirt",
-      "price": "\$60.00",
+      "price": "4000 DA",
       "image": "images/3.jpg",
       "color": "Red",
       "size": "Small",
@@ -89,13 +92,13 @@ class _OrdersListState extends State<OrdersList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(10),
-      itemCount: orders.length,
+      itemCount: orders.length, // Number of orders
       itemBuilder: (context, index) {
         final order = orders[index];
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           leading: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10), // Rounded image shape
             child: Image.asset(
               order["image"]!,
               width: 80,
@@ -111,47 +114,49 @@ class _OrdersListState extends State<OrdersList> {
             order["price"]!,
             style: GoogleFonts.poppins(color: Colors.grey, fontSize: 16),
           ),
-          trailing: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 178, 143, 119),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            ),
-            onPressed: () {
-              if (widget.orderType == "Update") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UpdateOrderPage(
-                      title: order["title"]!,
-                      price: order["price"]!,
-                      image: order["image"]!,
-                      color: order["color"]!,
-                      size: order["size"]!,
-                      notes: order["notes"]!,
-                    ),
+          trailing: (widget.orderType == "Update" || widget.orderType == "view Request")
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 163, 119, 178),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   ),
-                );
-              } else if (widget.orderType == "Order Details") {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RequestedOrderPage(
-                      title: order["title"]!,
-                      price: order["price"]!,
-                      image: order["image"]!,
-                      color: order["color"]!,
-                      size: order["size"]!,
-                      notes: order["notes"]!,
-                    ),
+                  onPressed: () {
+                    if (widget.orderType == "Update") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UpdateOrderPage(
+                            title: order["title"]!,
+                            price: order["price"]!,
+                            image: order["image"]!,
+                            color: order["color"]!,
+                            size: order["size"]!,
+                            notes: order["notes"]!,
+                          ),
+                        ),
+                      );
+                    } else if (widget.orderType == "view Request") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RequestedOrderPage(
+                            title: order["title"]!,
+                            price: order["price"]!,
+                            image: order["image"]!,
+                            color: order["color"]!,
+                            size: order["size"]!,
+                            notes: order["notes"]!,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    widget.orderType,
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
                   ),
-                );
-              }
-            },
-            child: Text(
-              widget.orderType,
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 16),
-            ),
-          ),
+                )
+              : null,
         );
       },
     );

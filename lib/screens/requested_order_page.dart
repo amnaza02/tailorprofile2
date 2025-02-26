@@ -85,18 +85,18 @@ class _RequestedOrderPageState extends State<RequestedOrderPage> {
               controller: _priceController,
               focusNode: _priceFocusNode,
               keyboardType: TextInputType.number,
-              cursorColor: const Color.fromARGB(255, 184, 142, 113),
+              cursorColor:  const Color.fromARGB(255, 163, 119, 178),
               decoration: InputDecoration(
                 labelText: "New Price (if modified)",
                 labelStyle: TextStyle(
                   color: _priceFocusNode.hasFocus
-                      ? const Color.fromARGB(255, 184, 142, 113)
+                      ?   const Color.fromARGB(255, 163, 119, 178)
                       : Colors.grey,
                 ),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 184, 142, 113),
+                    color:   const Color.fromARGB(255, 163, 119, 178),
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -129,7 +129,7 @@ class _RequestedOrderPageState extends State<RequestedOrderPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 175, 132, 76),
+                      backgroundColor:const Color.fromARGB(255, 130, 178, 119),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                     child: Text(
@@ -147,7 +147,7 @@ class _RequestedOrderPageState extends State<RequestedOrderPage> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 237, 171, 244),
+                      backgroundColor:const Color.fromARGB(255, 205, 114, 114),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                     child: Text(
@@ -175,7 +175,7 @@ class _RequestedOrderPageState extends State<RequestedOrderPage> {
               style: GoogleFonts.poppins(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: const Color.fromARGB(255, 184, 142, 113),
+                color: const Color.fromARGB(255, 163, 119, 178),
               ),
             ),
             TextSpan(

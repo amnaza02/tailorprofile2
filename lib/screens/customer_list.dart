@@ -1,28 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomerList extends StatelessWidget {
   const CustomerList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> followers = [
+      {"name": "Ismail", "image": "images/user1.jpg"},
+      {"name": "Amira", "image": "images/user2.jpg"},
+      {"name": "Khaled", "image": "images/user3.jpg"},
+      {"name": "Sarah", "image": "images/user4.jpg"},
+      {"name": "Omar", "image": "images/user5.jpg"},
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Followers"),
-        backgroundColor: Color.fromARGB(255, 178, 143, 119),
-        foregroundColor: Color.fromARGB(255, 245, 237, 226),
+        title: Text(
+          "Customers",
+          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0.5,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.people, size: 50, color: Color.fromARGB(255, 178, 143, 119)),
-            SizedBox(height: 20),
-            Text(
-              "List of followers will be shown here.",
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-            ),
-            // You can add actual Firebase data loading and display here later
-          ],
+          children: followers.map((follower) {
+            return ListTile(
+              contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              leading: CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage(follower["image"]!),
+              ),
+              title: Text(
+                follower["name"]!,
+                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );

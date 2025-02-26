@@ -8,7 +8,7 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  String _selectedLanguage = 'English'; // اللغة الافتراضية
+  String _selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _LanguagePageState extends State<LanguagePage> {
       title: Text(language, style: TextStyle()),
       value: language,
       groupValue: _selectedLanguage,
-      activeColor: Color.fromARGB(255, 184, 142, 113), // ✅ تغيير اللون فقط
+      activeColor: Color.fromARGB(255, 184, 142, 113), 
       onChanged: (value) {
         setState(() {
           _selectedLanguage = value!;

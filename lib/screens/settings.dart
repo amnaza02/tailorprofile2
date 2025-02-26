@@ -16,7 +16,7 @@ class SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Colors.grey[50], // لون متناسق
+        backgroundColor: Colors.grey[50], 
         foregroundColor: Colors.black,
       ),
       body: ListView(
@@ -43,13 +43,13 @@ class SettingsPageState extends State<SettingsPage> {
             icon: Icons.logout,
             title: "Logout",
             context: context,
-            page: null, // يمكن إضافة معالجة تسجيل الخروج هنا
+            page: null, 
           ),
           _buildListItem(
             icon: Icons.delete,
             title: "Delete Account",
             context: context,
-            page: null, // يمكن إضافة نافذة تأكيد لحذف الحساب
+            page: null, 
           ),
         ],
       ),
@@ -73,7 +73,7 @@ class SettingsPageState extends State<SettingsPage> {
             MaterialPageRoute(builder: (context) => page),
           );
         } else {
-          // تنفيذ الإجراء المطلوب (تسجيل الخروج أو حذف الحساب)
+          
         }
       },
     );
