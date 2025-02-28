@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     const TailorProfilePage(),
     const ManageOrders(),
-    const PostNewWorkPage(),
+    const NewPostScreen(),
     const SettingsPage(),
     const NotificationPage(),
   ];
