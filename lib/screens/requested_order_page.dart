@@ -96,7 +96,7 @@ class _RequestedOrderPageState extends State<RequestedOrderPage> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                    color:   const Color.fromARGB(255, 163, 119, 178),
+                    color:    Color.fromARGB(255, 163, 119, 178),
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(8),

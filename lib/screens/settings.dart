@@ -22,8 +22,8 @@ class SettingsPageState extends State<SettingsPage> {
       body: ListView(
         children: [
           _buildListItem(
-            icon: Icons.person,
-            title: "Account",
+            icon: Icons.edit_outlined,
+            title: "Edit profile",
             context: context,
             page: const EditProfile(),
           ),
