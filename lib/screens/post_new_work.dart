@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewPostScreen extends StatefulWidget {
   const NewPostScreen({Key? key}) : super(key: key);
@@ -19,8 +20,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
   List<Color> colors = Colors.primaries;
   List<Color> selectedColors = [];
 
-  List<String> fabrics = ['Cotton', 'Silk', 'Denim', 'Linen', 'Wool', 'Polyester'];
   List<String> selectedFabrics = [];
+  TextEditingController fabricController = TextEditingController();
 
   TextEditingController titleController = TextEditingController();
   TextEditingController detailsController = TextEditingController();
@@ -40,7 +41,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Select Colors"),
+          title: Text("Select Colors", style: GoogleFonts.poppins()),
           content: SingleChildScrollView(
             child: Wrap(
               spacing: 8.0,
@@ -49,11 +50,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      if (isSelected) {
-                        selectedColors.remove(color);
-                      } else {
-                        selectedColors.add(color);
-                      }
+                      isSelected ? selectedColors.remove(color) : selectedColors.add(color);
                     });
                   },
                   child: Container(
@@ -62,10 +59,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                     decoration: BoxDecoration(
                       color: color,
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected ? Colors.black : Colors.transparent,
-                        width: 2,
-                      ),
+                      border: Border.all(color: isSelected ? Colors.black : Colors.transparent, width: 2),
                     ),
                     child: isSelected ? const Icon(Icons.check, color: Colors.white) : null,
                   ),
@@ -76,7 +70,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Done"),
+              child: Text("Done", style: GoogleFonts.poppins()),
             ),
           ],
         );
@@ -87,7 +81,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("New Post")),
+      appBar: AppBar(title: Text("New Post", style: GoogleFonts.poppins(fontWeight: FontWeight.bold))),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -96,9 +90,10 @@ class _NewPostScreenState extends State<NewPostScreen> {
             children: [
               TextField(
                 controller: titleController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Enter Title",
+                  hintStyle: GoogleFonts.poppins(),
                 ),
               ),
               const SizedBox(height: 20),
@@ -114,7 +109,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                       color: Colors.grey[200],
                     ),
                     child: _imageBytes == null
-                        ? const Center(child: Text("There is no image"))
+                        ? Center(child: Text("There is no image", style: GoogleFonts.poppins()))
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.memory(
@@ -131,12 +126,12 @@ class _NewPostScreenState extends State<NewPostScreen> {
               ),
               const SizedBox(height: 20),
 
-              const Text("Select Sizes:"),
+              Text("Select Sizes:", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
               Wrap(
                 spacing: 8.0,
                 children: sizes.map((size) {
                   return ChoiceChip(
-                    label: Text(size),
+                    label: Text(size, style: GoogleFonts.poppins()),
                     selected: selectedSizes.contains(size),
                     onSelected: (selected) {
                       setState(() {
@@ -148,7 +143,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
               ),
               const SizedBox(height: 20),
 
-              const Text("Select Colors:"),
+              Text("Select Colors:", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
               Wrap(
                 spacing: 8.0,
                 children: selectedColors.map((color) {
@@ -169,28 +164,37 @@ class _NewPostScreenState extends State<NewPostScreen> {
               ),
               const SizedBox(height: 20),
 
-              const Text("Select Fabric:"),
-              DropdownButtonFormField<String>(
-                hint: const Text("Choose a fabric"),
-                isExpanded: true,
-                items: fabrics.map((String fabric) {
-                  return DropdownMenuItem<String>(
-                    value: fabric,
-                    child: Text(fabric),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  if (newValue != null && !selectedFabrics.contains(newValue)) {
-                    setState(() {
-                      selectedFabrics.add(newValue);
-                    });
-                  }
-                },
+              Text("Enter Fabric Type:", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: fabricController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: "Type fabric name...",
+                        hintStyle: GoogleFonts.poppins(),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      String newFabric = fabricController.text.trim();
+                      if (newFabric.isNotEmpty && !selectedFabrics.contains(newFabric)) {
+                        setState(() {
+                          selectedFabrics.add(newFabric);
+                          fabricController.clear();
+                        });
+                      }
+                    },
+                  ),
+                ],
               ),
               Wrap(
                 children: selectedFabrics.map((fabric) {
                   return Chip(
-                    label: Text(fabric),
+                    label: Text(fabric, style: GoogleFonts.poppins()),
                     onDeleted: () {
                       setState(() {
                         selectedFabrics.remove(fabric);
@@ -201,22 +205,23 @@ class _NewPostScreenState extends State<NewPostScreen> {
               ),
               const SizedBox(height: 20),
 
-              const Text("Description:"),
+              Text("Description:", style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
               TextField(
                 controller: detailsController,
                 maxLines: 3,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Write more details...",
+                  hintStyle: GoogleFonts.poppins(),
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text("Post"),
+                  child: Text("Post", style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
